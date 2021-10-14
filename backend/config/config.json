@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": "root",
+    "database": "groupomania",
+    "port": "8889",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "root",
+    "database": "groupomania",
+    "port": "8888",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "root",
+    "database": "groupomania",
+    "port": "8888",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
