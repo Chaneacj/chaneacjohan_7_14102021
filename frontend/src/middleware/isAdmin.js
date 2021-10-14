@@ -1,5 +1,6 @@
 export default function isAdmin(to, from, next) {
-  if (localStorage.getItem("userAdmin")) {
+  const admin = localStorage.getItem("userAdmin");
+  if (admin != "true") {
     next({ name: 'Feed' });
     return false;
   }

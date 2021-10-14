@@ -3,16 +3,7 @@
     <Nav />
     <div class="container" style="max-width: 540px">
       <div class="card text-center">
-        <div class="row card-info">
-          <p class="col-3 card-text"></p>
-          <p class="col-5 card-text"></p>
-          <p v-if="userId == user.id || userAdmin == 'true'" v-on:click="toggleOpened()" class="col-2 card-text">
-            <small class="text-primary">Modifier</small>
-          </p>
-          <p  v-if="userId == user.id || userAdmin == 'true'" class="col-2 card-text">
-            <small @click="deleteProfile" class="text-primary">Supprimer</small>
-          </p>
-        </div>
+        <div class="card-body">
         <form v-if="opened">
           <label>Modifier votre biographie</label>
           <textarea
@@ -27,7 +18,9 @@
         </textarea
           >
 
-          <label class="custom-file-label" for="image">Choisir une photo de profil</label>
+          <label class="custom-file-label" for="image"
+            >Choisir une photo de profil</label
+          >
           <input
             @change="getFile(user.id)"
             name="image"
@@ -44,8 +37,11 @@
             value="Modifier"
           />
         </form>
-        <div class="card-img"  v-if="user.photo">
-          <div class="img" :style="{'background-image': `url('${user.photo}')`}"></div> 
+        <div class="card-img" v-if="user.photo">
+          <div
+            class="img"
+            :style="{ 'background-image': `url('${user.photo}')` }"
+          ></div>
         </div>
 
         <div class="card-body">
@@ -58,6 +54,19 @@
           <p class="card-text">
             {{ user.bio }}
           </p>
+          <p
+            v-if="userId == user.id || userAdmin == 'true'"
+            v-on:click="toggleOpened()"
+            class="btn btn-outline-primary card-text col-12"
+          >
+            <small class="text-primary">Modifier</small>
+          </p>
+          <p v-if="userId == user.id || userAdmin == 'true'" class="card-text">
+            <a v-on:click="deleteUser(user.id)" class="btn btn-primary col-12"
+              >Supprimer mon compte</a
+            >
+          </p>
+        </div>
         </div>
       </div>
     </div>
@@ -119,15 +128,14 @@ export default {
       }
     },
 
-
-     // Permet de modifier le profile
+    // Permet de modifier le profile
     modifyUser(id) {
       const userId = id;
       const formData = new FormData();
       formData.append("bio", this.contentmodifyUser);
       formData.append("image", this.file);
 
-      console.log(this.contentmodifyUser , this.file)
+      console.log(this.contentmodifyUser, this.file);
 
       axios
         .put("http://localhost:3000/api/user/profil/" + userId, formData, {
@@ -164,10 +172,10 @@ export default {
         });
     },
 
-    deleteProfile() {
-      const userId = localStorage.getItem("userId");
+    /*     deleteProfile(id) {
+      const userId = id;
       axios
-        .delete("http://localhost:3000/api/user/delete", +userId, {
+        .delete("http://localhost:3000/api/user/delete", + userId, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -177,6 +185,26 @@ export default {
           this.$router.push("/");
         })
         .catch((error) => console.log(error));
+    }, */
+    deleteUser(id) {
+      //const userId = id;
+      axios
+        .delete("http://localhost:3000/api/user/delete/" + id, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then(() => {
+          localStorage.clear();
+          this.$router.push("/");
+        })
+        .catch(() => {
+          // const msgerror = error.response.data;
+          // this.notyf.error(msgerror.error);
+          // console.log(msgerror)
+          //window.location.reload();
+        });
     },
   },
 };
@@ -302,22 +330,20 @@ export default {
       letter-spacing: 0.2px;
       margin-top: 8px;
     }
-
   }
 
-    .card-img{
-      width: 100%;
-      display:flex;
-      justify-content:center;
+  .card-img {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 
-      .img{
-        width: 300px;
-        height:300px;
-        border-radius:50%;
-        background:grey;
-        background-size:cover;
-      }
+    .img {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: grey;
+      background-size: cover;
     }
+  }
 }
-
 </style>

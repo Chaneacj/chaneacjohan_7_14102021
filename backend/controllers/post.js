@@ -2,12 +2,12 @@
 const models = require("../models");
 const jwt = require('jsonwebtoken');
 const auth = require("../middleware/auth");
-
 const fs = require("fs");
 
+// Permet d'afficher tous les post
 exports.getAllPost = (req, res) => {
 	models.Post.findAll(
-		{include  : [{ model: models.User ,  attributes:['first_name', "last_name", "email", "id"]}]}
+		{ include: [{ model: models.User, attributes: ['first_name', "last_name", "email", "id"] }] }
 	)
 		.then((messages) => {
 			console.log(messages)
@@ -16,14 +16,13 @@ exports.getAllPost = (req, res) => {
 		.catch((error) => res.status(500).json({ error }));
 };
 
-
+// Permet d'afficher un les post
 exports.getOnePost = (req, res) => {
 
 	//console.log(req.params.id);
-
 	models.Post.findOne({
 		where: { id: req.params.id },
-		include  : [{ model: models.User ,  attributes:['first_name']}]
+		include: [{ model: models.User, attributes: ['first_name'] }]
 	})
 		.then((message) => {
 			console.log(message)
@@ -37,7 +36,7 @@ exports.getOnePost = (req, res) => {
 		});
 };
 
-
+// Permet de créer un post
 exports.create = (req, res) => {
 	const token = req.headers.authorization.split(' ')[1];
 	const decodedToken = jwt.verify(token, 'RjfkdlRFempocSl');
@@ -78,11 +77,9 @@ exports.create = (req, res) => {
 		});
 };
 
-
+// Permet de modifier un post
 exports.update = (req, res) => {
 	const id = req.params.id;
-
-
 
 	const data = req.file
 		? {
@@ -102,26 +99,24 @@ exports.update = (req, res) => {
 
 	models.Post.findByPk(id).then((post) => {
 
-		if(data.content.length <= 0){
+		if (data.content.length <= 0) {
 			data.content = post.content;
-		  }
-		//Si dqtq i,qge existe
-			//Suppri,er l'i,qge
-		const filename = post.imagePost ? {name: post.imagePost.split("3000/")[1]} : {name: post.imagePost};
+		}
+		const filename = post.imagePost ? { name: post.imagePost.split("/images/")[1] } : { name: post.imagePost };
 		fs.unlink(`images/${filename.name}`, () => {
-		post.update(data, {
-			where: { id: id },
-		})
-			.then((post) => {
-				res.send({
-					message: "Le message a été mis à jour.",
-				});
+			post.update(data, {
+				where: { id: id },
 			})
-			.catch((err) => {
-				res.status(500).send({
-					message: "Impossible de mettre à jour ce message",
+				.then((post) => {
+					res.send({
+						message: "Le message a été mis à jour.",
+					});
+				})
+				.catch((err) => {
+					res.status(500).send({
+						message: "Impossible de mettre à jour ce message",
+					});
 				});
-			});
 		});
 	}).catch((err) => {
 		res.status(500).send({
@@ -130,23 +125,24 @@ exports.update = (req, res) => {
 	});
 };
 
+// Permet de supprimer un post
 exports.delete = (req, res, next) => {
 
 	models.Post.findOne({
-		attributes: ['id' , 'imagePost'],
+		attributes: ['id', 'imagePost'],
 		where: { id: req.params.id }
 	})
 		.then(post => {
 			if (post) {
 				if (post.imagePost != null) {
 					const filename = post.imagePost.split('/images/')[1];
-					fs.unlink(`images/${filename}`, (err) => {});
+					fs.unlink(`images/${filename}`, (err) => { });
 				}
 				models.Post.destroy({
 					where: { id: req.params.id }
 				})
-				.then(() => res.status(200).json({ message: 'Votre post a été supprimé' }))
-				.catch(() => res.status(500).json({ error: 'une erreur s\'est produite !' }));
+					.then(() => res.status(200).json({ message: 'Votre post a été supprimé' }))
+					.catch(() => res.status(500).json({ error: 'une erreur s\'est produite !' }));
 
 			} else {
 				return res.status(404).json({ error: 'Message non trouvé' })

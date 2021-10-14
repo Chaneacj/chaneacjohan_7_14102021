@@ -5,6 +5,7 @@
         <label>Titre</label>
         <input
           v-model="title"
+          class="form-control form-text text-muted"
           type="text"
           placeholder="Titre de votre article"
           id="title"
@@ -15,6 +16,7 @@
         <label>Message</label>
         <textarea
           v-model="content"
+          class="form-control form-text text-muted"
           type="text"
           placeholder="Message de votre article"
           id="content"
@@ -29,7 +31,7 @@ Entrez votre Message
           @change="getFile"
           name="image"
           type="file"
-          class="custom-file-input"
+          class="custom-file-input form-control form-text text-muted"
           accept="image"
           ref="file"
           id="file"

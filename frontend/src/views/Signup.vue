@@ -25,6 +25,7 @@
               <label>first name</label>
               <input
                 type="text"
+                class="form-text text-muted"
                 placeholder="Votre prénom"
                 id="firstName"
                 required
@@ -35,6 +36,7 @@
               <label>Last name</label>
               <input
                 type="text"
+                class="form-text text-muted"
                 placeholder="Votre nom"
                 id="lastName"
                 required
@@ -45,6 +47,7 @@
               <label>E-mail</label>
               <input
                 type="email"
+                class="form-text text-muted"
                 placeholder="Votre email"
                 id="email"
                 required
@@ -55,6 +58,7 @@
               <label>Password</label>
               <input
                 type="password"
+                class="form-text text-muted"
                 placeholder="Votre mot de passe"
                 id="password"
                 required

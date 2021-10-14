@@ -23,6 +23,7 @@
         </p>
         <label>E-mail</label>
         <input
+          class="form-text text-muted"
           type="email"
           placeholder="Votre email"
           id="email"
@@ -35,6 +36,7 @@
 
         <label>Password</label>
         <input
+          class="form-text text-muted"
           type="password"
           placeholder="Votre mot de passe"
           id="password"

@@ -3,13 +3,13 @@
     <div class="card-body">
       <div class="container">
         <div class="row card-info">
-          <p class="col-3 card-text">
+          <p class="col card-text">
             <small class="text-muted"
               ><i class="far fa-calendar"></i
               >{{ [" "] + dateFormat(post.createdAt) }}</small
             >
           </p>
-          <p class="col-5 card-text">
+          <p class="col card-text">
             <small class="text-muted"
               ><i class="far fa-user"></i
               >{{
@@ -20,12 +20,12 @@
           <p
             v-on:click="toggleOpened()"
             v-if="userId == post.UserId || userAdmin == 'true'"
-            class="col-2 btn btn-link"
+            class="col btn btn-link"
           >
             <small> Modifier</small>
           </p>
           <p
-            class="col-2 btn btn-link"
+            class="col btn btn-link"
             v-if="userId == post.UserId || userAdmin == 'true'"
           >
             <small v-on:click="deletePost(post.id)">Supprimer</small>
@@ -173,7 +173,7 @@ export default {
       console.log(this.file);
     },
 
-    // Permet d'afficher le champ pour modifier un message
+    // Permet d'afficher le champ pour modifier un post
     displayModifyPost(id) {
       const postId = id;
       let contentPost = document.querySelector('p[contentPostId="' + id + '"]');
@@ -193,7 +193,7 @@ export default {
         this.showInputModify = !this.showInputModify;
       }
     },
-    // Permet de modifier un message
+    // Permet de modifier un post
     modifyPost(id) {
       const postId = id;
       const formData = new FormData();
@@ -215,7 +215,7 @@ export default {
           this.notyf.error(msgerror.error);
         });
     },
-
+// Permet supprimer un post
     deletePost(id) {
       const postId = id;
       axios
@@ -260,7 +260,7 @@ export default {
         });
     },
 
-    // Permet d'afficher les commentaires d'un message
+    // Permet d'afficher les commentaires d'un post
     displayComment() {
       this.showComment = !this.showComment;
       axios
@@ -279,6 +279,7 @@ export default {
         });
     },
 
+  // Permet supprimer un commentaires
     deleteComment(id) {
       axios
         .delete("http://localhost:3000/api/comment/" + id, {

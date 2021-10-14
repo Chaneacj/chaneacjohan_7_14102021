@@ -102,7 +102,7 @@ exports.login = (req, res, next) => {
 };
 
 
-// GET - Recupérer UN objet de la BDD 
+// Permet d'afficher un user
 exports.profil = (req, res, next) => {
   models.User.findOne({
     attributes: ["first_name", "last_name", "email", "id", "bio", "photo"],
@@ -135,19 +135,16 @@ exports.updateProfile = (req, res) => {
       // Sans image
       bio: req.body.bio,
     };
-
-    
-
     console.log(data)
 
   models.User.findByPk(id).then((user) => {
-    const filename = user.avatar ? {name: user.photo.split("3000/")[1]} : {name: user.photo};
+    const filename = user.photo ? {name: user.photo.split("/images/")[1]} : {name: user.photo};
     fs.unlink(`images/${filename.name}`, () => {
       
       if(data.bio.length <= 0){
         data.bio = user.bio;
       }
-      console.log(data)
+      //console.log(data)
 
       models.User.update(data, {
         where: { id: id },
@@ -164,7 +161,7 @@ exports.updateProfile = (req, res) => {
   });
 };
 
-//DELETE - Supprimer UN objet de la BDD
+// Permet supprimer un user
 exports.deleteProfil = (req, res, next) => {
   const id = req.params.id;
   models.User.findOne({
@@ -173,6 +170,7 @@ exports.deleteProfil = (req, res, next) => {
   })
     .then(user => {
       if (user) {
+        
         models.User.destroy({
           where: { id: id }
         })
@@ -184,12 +182,10 @@ exports.deleteProfil = (req, res, next) => {
       }
     })
     .catch(error => res.status(500).json({ error: 'Impossible de supprimer le profile.' }));
-}
+} 
 
 
-
-
-// GET - Recupérer UN objet de la BDD 
+// Permet d'afficher tous les users
 exports.getAllUsers = (req, res, next) => {
   models.User.findAll({
     attributes: ["first_name", "last_name", "email", "id"],
