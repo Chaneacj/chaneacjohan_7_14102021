@@ -78,7 +78,57 @@ exports.create = (req, res) => {
 };
 
 // Permet de modifier un post
+
 exports.update = (req, res) => {
+	const id = req.params.id;
+
+
+
+	const data = req.file
+		? {
+			title: req.body.title,
+			content: req.body.content,
+			userId: req.body.userId,
+			imagePost: `${req.protocol}://${req.get("host")}/images/${req.file.filename
+				}`,
+		}
+		: {
+			title: req.body.title,
+			content: req.body.content,
+			userId: req.body.userId,
+		};
+
+	console.log(id, data)
+
+	models.Post.findByPk(id).then((post) => {
+
+		if(data.content.length <= 0){
+			data.content = post.content;
+		  }
+
+		const filename = post.imagePost ? {name: post.imagePost.split("3000/")[1]} : {name: post.imagePost};
+		fs.unlink(`images/${filename.name}`, () => {
+		post.update(data, {
+			where: { id: id },
+		})
+			.then((post) => {
+				res.send({
+					message: "Le message a été mis à jour.",
+				});
+			})
+			.catch((err) => {
+				res.status(500).send({
+					message: "Impossible de mettre à jour ce message",
+				});
+			});
+		});
+	}).catch((err) => {
+		res.status(500).send({
+			message: "Impossible de trouver le post",
+		});
+	});
+};
+/* exports.update = (req, res) => {
 	const id = req.params.id;
 
 	const data = req.file
@@ -99,22 +149,20 @@ exports.update = (req, res) => {
 
 	models.Post.findByPk(id).then((post) => {
 
-		if (data.content.length <= 0) {
-			data.content = post.content;
-		}
 		const filename = post.imagePost ? { name: post.imagePost.split("/images/")[1] } : { name: post.imagePost };
 		fs.unlink(`images/${filename.name}`, () => {
-			post.update(data, {
+
+  			console.log(data)
+
+			models.post.update(data, {
 				where: { id: id },
 			})
 				.then((post) => {
-					res.send({
-						message: "Le message a été mis à jour.",
-					});
+					res.status(200).send({message: "Votre profil a été mis à jour."});
 				})
 				.catch((err) => {
 					res.status(500).send({
-						message: "Impossible de mettre à jour ce message",
+						message: "Impossible de mettre à jour ce post",
 					});
 				});
 		});
@@ -123,7 +171,7 @@ exports.update = (req, res) => {
 			message: "Impossible de trouver le post",
 		});
 	});
-};
+}; */
 
 // Permet de supprimer un post
 exports.delete = (req, res, next) => {

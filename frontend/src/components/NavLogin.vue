@@ -39,7 +39,7 @@ nav {
 
     #logo{
       position: relative;
-      width: 30%;
+      width: 50%;
     }
 
     a{

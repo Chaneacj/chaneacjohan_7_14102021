@@ -25,7 +25,7 @@
             <small> Modifier</small>
           </p>
           <p
-            class="col btn btn-link"
+            class="col btn btn-link btn-link-delete"
             v-if="userId == post.UserId || userAdmin == 'true'"
           >
             <small v-on:click="deletePost(post.id)">Supprimer</small>
@@ -84,7 +84,7 @@
             required
             aria-label="Entrez le titre de votre article"
           />
-          <button class="btn btn-outline-primary" type="submit">Publier</button>
+          <button class="btn btn-outline-primary text-outline-primary" type="submit">Publier</button>
           </div>
         </form>
       </div>
@@ -111,7 +111,7 @@
                   >
                     <small 
                       v-on:click="deleteComment(comment.id)"
-                      class="btn btn-link"
+                      class="btn btn-link btn-link-delete"
                       >Supprimer</small
                     >
                   </p>
@@ -431,6 +431,20 @@ export default {
       letter-spacing: 0.2px;
       margin-top: 8px;
     }
+  }
+
+  .btn-link{
+    color: #00008B;
+  }
+
+  .btn-link-delete {
+    color: #FD2D01;
+  }
+
+  .btn-outline-primary {
+    border: 2px solid #00008B;
+    background: #ffffff;
+    color: #00008B;
   }
 }
 </style>

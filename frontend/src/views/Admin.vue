@@ -220,5 +220,10 @@ button {
       margin-top: 8px;
     }
   }
+  .btn-primary{
+        background: #00008B;
+    color: #ffffff;
+    border: 2px solid #00008B;
+  }
 }
 </style>

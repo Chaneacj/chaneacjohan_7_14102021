@@ -74,10 +74,10 @@ button {
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  background: #0764e3;
+  background: #00008B;
   color: #ffffff;
   border: none;
-  border: 2px solid #0764e3;
+  border: 2px solid #00008B;
   letter-spacing: 0.25px;
   margin-top: 10px;
 }

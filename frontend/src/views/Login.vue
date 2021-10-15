@@ -16,8 +16,8 @@
           </div>
           <div class="col-sm-8 col-lg-6">
       <form @submit.prevent="login">
-        <h2>Hey, look who's here!</h2>
-        <h1>Before the start</h1>
+        <h2>Hey, regardez qui est là!</h2>
+        <h1>Avant de commencer</h1>
         <p>
           Fill in the form below to get instant access to all major features.
         </p>
@@ -186,10 +186,10 @@ form {
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
-    background: #0764e3;
+    background: #00008B;
     color: #ffffff;
     border: none;
-    border: 2px solid #0764e3;
+    border: 2px solid #00008B;
     letter-spacing: 0.25px;
     margin-top: 10px;
   }

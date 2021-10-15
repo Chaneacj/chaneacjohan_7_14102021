@@ -16,13 +16,13 @@
           </div>
           <div class="col-sm-8 col-lg-6">
             <form @submit.prevent="sendData">
-              <h2>Hey, look who's here!</h2>
-              <h1>Create account</h1>
+              <h2>Hey, vous ici !</h2>
+              <h1>Créer un Compte</h1>
               <p>
                 Bring to the table win-win survival strategies to ensure
                 proactive domination. At the end of the day, going forward.
               </p>
-              <label>first name</label>
+              <label>Prénom</label>
               <input
                 type="text"
                 class="form-text text-muted"
@@ -33,7 +33,7 @@
                 aria-label="Entrez votre prénom"
                 v-model="firstName"
               />
-              <label>Last name</label>
+              <label>Nom</label>
               <input
                 type="text"
                 class="form-text text-muted"
@@ -203,10 +203,10 @@ form {
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
-    background: #0764e3;
+    background: #00008B;
     color: #ffffff;
     border: none;
-    border: 2px solid #0764e3;
+    border: 2px solid #00008B;
     letter-spacing: 0.25px;
     margin-top: 10px;
   }

@@ -59,7 +59,7 @@
             v-on:click="toggleOpened()"
             class="btn btn-outline-primary card-text col-12"
           >
-            <small class="text-primary">Modifier</small>
+            <small class="text-outline-primary">Modifier</small>
           </p>
           <p v-if="userId == user.id || userAdmin == 'true'" class="card-text">
             <a v-on:click="deleteUser(user.id)" class="btn btn-primary col-12"
@@ -299,7 +299,7 @@ export default {
       border: 2px solid #ededed;
       background: #ffffff;
       &:focus {
-        border: 4px solid #0764e3;
+        border: 4px solid #00008B;
       }
     }
 
@@ -311,10 +311,10 @@ export default {
       width: -webkit-fill-available;
       width: fill-available;
       margin: 1px auto 7px;
-      color: #0764e3;
+      color: #00008B;
       line-height: 20px;
       border-radius: 6px;
-      border: 2px solid #0764e3;
+      border: 2px solid #00008B;
       background: #ffffff;
     }
 
@@ -324,9 +324,9 @@ export default {
       font-size: 14px;
       line-height: 18px;
       background: #ffffff;
-      color: #0764e3;
+      color: #00008B;
       border: none;
-      border: 2px solid #0764e3;
+      border: 2px solid #00008B;
       letter-spacing: 0.2px;
       margin-top: 8px;
     }
@@ -344,6 +344,24 @@ export default {
       background: grey;
       background-size: cover;
     }
+  }
+
+  .btn-primary {
+    border: 2px solid #FD2D01;
+    background: #FD2D01;
+    color: #ffffff;
+  }
+
+  
+
+  .btn-outline-primary {
+    border: 2px solid #00008B;
+    background: #ffffff;
+    color: #ffffff;
+  }
+
+  .text-outline-primary {
+    color: #00008B;
   }
 }
 </style>
